@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - run: cp ./wiki/README.md ./wiki/Home.md
       - uses: actions/checkout@v1
       # Additional steps to generate documentation in "Documentation" directory
       - name: Upload Documentation to Wiki
