@@ -9,8 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       # - run: cp ./wiki/README.md ./wiki/_Sidebar.md
-      - run: python --version
-      - run: bash ./wiki/replace.sh
+      # - run: bash ./wiki/replace.sh
+      - run: python ./wiki/replace.py
       # Additional steps to generate documentation in "Documentation" directory
       - name: Upload Documentation to Wiki
         uses: SwiftDocOrg/github-wiki-publish-action@v1
