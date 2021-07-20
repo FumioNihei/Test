@@ -5,6 +5,6 @@
 
 
 # cats
-- [cat](./contents/cat.md)
-- [cat2](./contents/cat2.md)
+- [日本語ページ](./contents/日本語ページ.md)
+- [違う場合](./contents/日本語ページ.md)
     - [cat21](./contents/cat21.md)
