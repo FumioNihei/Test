@@ -8,7 +8,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - run: |
+      run: |
         cp ./wiki/README.md ./wiki/_Sidebar.md
         cp ./wiki/README.md ./wiki/Home.md
       # Additional steps to generate documentation in "Documentation" directory
