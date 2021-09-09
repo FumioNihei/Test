@@ -10,7 +10,6 @@ uri = "https://github.com/FumioNihei/Test/wiki/"
 def readme_to_sidebar( src, dest ):
     
     with open( src, "r", encoding='utf-8' ) as tf:
-        # lines = tf.read().split( "\n" )
         lines = tf.readlines()
 
     def replace( line ):
@@ -18,15 +17,13 @@ def readme_to_sidebar( src, dest ):
         result = re.match( r"\s*- \[.+\]\((.+)\)", line )
         print( result )
 
-        # # マッチしなかったら何もしない
         if result is None:
             return line
         
         # # markdownのパスを変数pathに代入
         path = str( result.groups()[0] )
 
-        replaced_path = path.replace( ".md", "" )
-        replaced_path = replaced_path.replace( "./contents/", "" )
+        replaced_path = path.replace( "./contents/", "" ).replace( ".md", "" )
         replaced_path = urllib.parse.quote( replaced_path )
         replaced_path = f"{uri}{replaced_path}"
 

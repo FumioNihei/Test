@@ -7,6 +7,7 @@
 - macの場合）terminalを開く．
 - Ubuntuの場合）terminalを開く．　
 
+[日本語の場合](./日本語ページ.md)
 
 # 接続の仕方
 
