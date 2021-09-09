@@ -3,7 +3,7 @@
 
 使用方法は全てのOSで共通です．コマンドを実行するためにはコンソールを立ち上げる必要があります．立ち上げ方は以下．
 
-- winの場合）`powershell`を呼び出す（see -> [powershell](./contents/test2)）
+- winの場合）`powershell`を呼び出す（see -> [powershell](./test2.md)）
 - macの場合）terminalを開く．
 - Ubuntuの場合）terminalを開く．　
 

@@ -61,7 +61,8 @@ def replace_link( src_dir, dest_dir ):
             continue
 
         for text, path in results:
-            s = s.replace( f"[{text}]({path})", f"[[{text}]]" )
+            name = path.replace( "./", "" ).replace( ".md", "" )
+            s = s.replace( f"[{text}]({path})", f"[[{name}]]" )
         
         with open( src, 'w', encoding='utf-8' ) as f:        
             f.write( s )
