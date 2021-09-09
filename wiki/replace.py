@@ -37,13 +37,14 @@ def readme_to_sidebar():
 
 
 
-def copy_to_parent_dir():
+def copy_wikicontents_to_docs():
     import glob
     import os
     import shutil
 
     src_dir = "./wiki/contents/"
-    dest_dir = "./wiki/"
+    dest_dir = "./docs/"
+    os.mkdir( dest_dir )
 
     files = glob.glob( f"{src_dir}*.md" )
 
@@ -55,4 +56,4 @@ def copy_to_parent_dir():
 
 
 readme_to_sidebar()
-copy_to_parent_dir()
+copy_wikicontents_to_docs()
