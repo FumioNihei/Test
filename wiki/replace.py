@@ -39,7 +39,8 @@ def readme_to_sidebar( src, dest ):
 
     # with open( './docs/_Sidebar.md', 'w', encoding='utf-8' ) as f:
     with open( dest, 'w', encoding='utf-8' ) as f:        
-        f.writelines( [ f"{line}\n" for line in lines ] )
+        # f.writelines( [ f"{line}\n" for line in lines ] )
+        f.writelines( lines )
 
 
 
