@@ -86,8 +86,8 @@ def copy_wikicontents_to( src_dir, dest_dir ):
 
 
 
-copy_wikicontents_to( src_dir: "./wiki/contents/", dest_dir: "./docs/" )
+copy_wikicontents_to( src_dir="./wiki/contents/", dest_dir="./docs/" )
 
-replace_link( src_dir: "./docs/", dest_dir: "./docs/" )
+replace_link( src_dir="./docs/", dest_dir="./docs/" )
 
-# readme_to_sidebar( src: "./docs/README.md", dest: './docs/_Sidebar.md' )
+# readme_to_sidebar( src="./docs/README.md", dest='./docs/_Sidebar.md' )
