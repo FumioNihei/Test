@@ -8,9 +8,10 @@ import shutil
 uri = "https://github.com/FumioNihei/Test/wiki/"
 
 def readme_to_sidebar( src, dest ):
-    # with open( "./wiki/README.md", "r", encoding='utf-8' ) as tf:
+    
     with open( src, "r", encoding='utf-8' ) as tf:
-        lines = tf.read().split( "\n" )
+        # lines = tf.read().split( "\n" )
+        lines = tf.readlines()
 
     def replace( line ):
         # # こういうのがマッチ -> "- [test](./contents/test.md)"
@@ -52,28 +53,22 @@ def replace_link( src_dir, dest_dir ):
         with open( src, "r", encoding='utf-8' ) as tf:
             s = tf.read()
 
+        results = re.findall( r"\[(.+)\]\((.+)\)", s )
+        results = [ (text, path) for text, path in results if not path.startswith( "http" ) ]
 
-        result = re.match( r"(\[.+\]\(.+\))", s )
-
-        if result is None:
+        if len(results) == 0:
             continue
 
-
-        for match in result.groups():
-            print( match )
-
-            res = re.match( r".+\((.+)\))", match )
-            m = res.groups()[0]
-            print( m )
+        for text, path in results:
+            s = s.replace( f"[{text}]({path})", f"[[{text}]]" )
+        
+        with open( src, 'w', encoding='utf-8' ) as f:        
+            f.write( s )
 
 
 
 
 def copy_wikicontents_to( src_dir, dest_dir ):
-    # src_dir = "./wiki/contents/"
-    # dest_dir = "./docs/"
-    os.mkdir( dest_dir )
-
     files = glob.glob( f"{src_dir}*.md" )
 
     for src in files:
@@ -83,8 +78,13 @@ def copy_wikicontents_to( src_dir, dest_dir ):
 
 
 
-copy_wikicontents_to( src_dir="./wiki/contents/", dest_dir="./docs/" )
 
-replace_link( src_dir="./docs/", dest_dir="./docs/" )
 
-# readme_to_sidebar( src="./docs/README.md", dest='./docs/_Sidebar.md' )
+dest_dir = "./docs/"
+
+if not os.path.exists( dest_dir ):
+    os.mkdir( dest_dir )
+
+copy_wikicontents_to( src_dir="./wiki/contents/", dest_dir=dest_dir )
+replace_link( src_dir=dest_dir, dest_dir=dest_dir )
+readme_to_sidebar( src="./wiki/README.md", dest='./docs/_Sidebar.md' )
