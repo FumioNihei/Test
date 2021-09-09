@@ -1,6 +1,9 @@
 
 import re
 import urllib.parse
+import glob
+import os
+import shutil
 
 uri = "https://github.com/FumioNihei/Test/wiki/"
 
@@ -42,8 +45,6 @@ def readme_to_sidebar( src, dest ):
 
 
 def replace_link( src_dir, dest_dir ):
-
-
     files = glob.glob( f"{src_dir}*.md" )
 
     for src in files:
@@ -69,10 +70,6 @@ def replace_link( src_dir, dest_dir ):
 
 
 def copy_wikicontents_to( src_dir, dest_dir ):
-    import glob
-    import os
-    import shutil
-
     # src_dir = "./wiki/contents/"
     # dest_dir = "./docs/"
     os.mkdir( dest_dir )
