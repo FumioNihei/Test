@@ -47,7 +47,7 @@ def replace_link( src_dir, dest_dir ):
         with open( src, "r", encoding='utf-8' ) as tf:
             s = tf.read()
 
-        results = re.findall( r"\[(.+)\]\((.+)\)", s )
+        results = re.findall( r"[^!]\[(.+)\]\((.+)\)", s )
         results = [ (text, path) for text, path in results if not path.startswith( "http" ) ]
 
         if len(results) == 0:
