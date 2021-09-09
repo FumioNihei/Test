@@ -9,20 +9,23 @@ def readme_to_sidebar():
     uri = "https://github.com/FumioNihei/Test/wiki/"
 
     def replace( line ):
+        # # こういうのがマッチ -> "- [test](./contents/test.md)"
         result = re.match( r"\s*- \[.+\]\((.+)\)", line )
         print( result )
 
+        # # マッチしなかったら何もしない
         if result is None:
             return line
         
-        url = str( result.groups()[0] )
+        # # markdownのパスを変数pathに代入
+        path = str( result.groups()[0] )
 
-        replaced_url = url.replace( ".md", "" )
-        replaced_url = replaced_url.replace( "./contents/", "" )
-        replaced_url = urllib.parse.quote( replaced_url )
-        replaced_url = f"{uri}{replaced_url}"
+        replaced_path = path.replace( ".md", "" )
+        replaced_path = replaced_path.replace( "./contents/", "" )
+        replaced_path = urllib.parse.quote( replaced_path )
+        replaced_path = f"{uri}{replaced_path}"
 
-        result = re.sub( url, replaced_url, line )
+        result = re.sub( path, replaced_path, line )
         return result
 
 
