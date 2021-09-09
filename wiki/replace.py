@@ -5,7 +5,7 @@ import glob
 import os
 import shutil
 
-uri = "https://github.com/FumioNihei/Test/wiki/"
+wiki_uri = "https://github.com/FumioNihei/Test/wiki/"
 
 def readme_to_sidebar( src, dest ):
     
@@ -25,18 +25,14 @@ def readme_to_sidebar( src, dest ):
 
         replaced_path = path.replace( "./contents/", "" ).replace( ".md", "" )
         replaced_path = urllib.parse.quote( replaced_path )
-        replaced_path = f"{uri}{replaced_path}"
+        replaced_path = f"{wiki_uri}{replaced_path}"
 
         result = re.sub( path, replaced_path, line )
         return result
 
-
     lines = [ replace(line) for line in lines ]
-    print( lines )
 
-    # with open( './docs/_Sidebar.md', 'w', encoding='utf-8' ) as f:
     with open( dest, 'w', encoding='utf-8' ) as f:        
-        # f.writelines( [ f"{line}\n" for line in lines ] )
         f.writelines( lines )
 
 
@@ -67,23 +63,8 @@ def replace_link( src_dir, dest_dir ):
 
 
 
-def copy_wikicontents_to( src_dir, dest_dir ):
-    files = glob.glob( f"{src_dir}*.md" )
-
-    for src in files:
-        dest = os.path.join( dest_dir, os.path.split(src)[1] )
-        print( f"{src} -> {dest}" )
-        shutil.copyfile( src, dest )
-
-
-
-
-
 dest_dir = "./docs/"
 
-if not os.path.exists( dest_dir ):
-    os.mkdir( dest_dir )
-
-copy_wikicontents_to( src_dir="./wiki/contents/", dest_dir=dest_dir )
+shutil.copytree( "./wiki/contents/", dest_dir, dirs_exist_ok=True )
 replace_link( src_dir=dest_dir, dest_dir=dest_dir )
 readme_to_sidebar( src="./wiki/README.md", dest='./docs/_Sidebar.md' )
