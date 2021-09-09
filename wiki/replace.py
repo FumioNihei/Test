@@ -2,11 +2,12 @@
 import re
 import urllib.parse
 
-def readme_to_sidebar():
-    with open( "./wiki/README.md", "r", encoding='utf-8' ) as tf:
-        lines = tf.read().split( "\n" )
+uri = "https://github.com/FumioNihei/Test/wiki/"
 
-    uri = "https://github.com/FumioNihei/Test/wiki/"
+def readme_to_sidebar( src, dest ):
+    # with open( "./wiki/README.md", "r", encoding='utf-8' ) as tf:
+    with open( src, "r", encoding='utf-8' ) as tf:
+        lines = tf.read().split( "\n" )
 
     def replace( line ):
         # # こういうのがマッチ -> "- [test](./contents/test.md)"
@@ -32,18 +33,48 @@ def readme_to_sidebar():
     lines = [ replace(line) for line in lines ]
     print( lines )
 
-    with open( './wiki/_Sidebar.md', 'w', encoding='utf-8' ) as f:
+    # with open( './docs/_Sidebar.md', 'w', encoding='utf-8' ) as f:
+    with open( dest, 'w', encoding='utf-8' ) as f:        
         f.writelines( [ f"{line}\n" for line in lines ] )
 
 
 
-def copy_wikicontents_to_docs():
+
+
+def replace_link( src_dir, dest_dir ):
+
+
+    files = glob.glob( f"{src_dir}*.md" )
+
+    for src in files:
+
+        with open( src, "r", encoding='utf-8' ) as tf:
+            s = tf.read()
+
+
+        result = re.match( r"(\[.+\]\(.+\))", s )
+
+        if result is None:
+            continue
+
+
+        for match in result.groups():
+            print( match )
+
+            res = re.match( r".+\((.+)\))", match )
+            m = res.groups()[0]
+            print( m )
+
+
+
+
+def copy_wikicontents_to( src_dir, dest_dir ):
     import glob
     import os
     import shutil
 
-    src_dir = "./wiki/contents/"
-    dest_dir = "./docs/"
+    # src_dir = "./wiki/contents/"
+    # dest_dir = "./docs/"
     os.mkdir( dest_dir )
 
     files = glob.glob( f"{src_dir}*.md" )
@@ -55,5 +86,8 @@ def copy_wikicontents_to_docs():
 
 
 
-readme_to_sidebar()
-copy_wikicontents_to_docs()
+copy_wikicontents_to( src_dir: "./wiki/contents/", dest_dir: "./docs/" )
+
+replace_link( src_dir: "./docs/", dest_dir: "./docs/" )
+
+# readme_to_sidebar( src: "./docs/README.md", dest: './docs/_Sidebar.md' )
