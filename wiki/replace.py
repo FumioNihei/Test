@@ -37,7 +37,7 @@ def readme_to_sidebar( src, dest ):
 
 
 
-
+image_uri = "https://github.com/FumioNihei/Test/blob/master/wiki/contents/images"
 
 def replace_link( src_dir, dest_dir ):
     files = glob.glob( f"{src_dir}*.md" )
@@ -47,15 +47,25 @@ def replace_link( src_dir, dest_dir ):
         with open( src, "r", encoding='utf-8' ) as tf:
             s = tf.read()
 
-        results = re.findall( r"[^!]\[(.+)\]\((.+)\)", s )
-        results = [ (text, path) for text, path in results if not path.startswith( "http" ) ]
+        href_urls = re.findall( r"[^!]\[(.+)\]\((.+)\)", s )
+        href_urls = [ (text, path) for text, path in href_urls if not path.startswith( "http" ) ]
 
-        if len(results) == 0:
+        image_urls = re.findall( r"!\[(.*)\]\((.+)\)", s )
+        image_urls = [ (text, path) for text, path in image_urls if not path.startswith( "http" ) ]
+
+        print( image_urls )
+
+        if len(href_urls) == 0 and len(image_urls) == 0:
             continue
 
-        for text, path in results:
+
+        for text, path in href_urls:
             name = path.replace( "./", "" ).replace( ".md", "" )
             s = s.replace( f"[{text}]({path})", f"[[{name}]]" )
+        
+        for text, path in image_urls:
+            name = path.replace( "./images/", "" )
+            s = s.replace( f"![{text}]({path})", f"![{text}]({image_uri}/{name})" )
         
         with open( src, 'w', encoding='utf-8' ) as f:        
             f.write( s )
